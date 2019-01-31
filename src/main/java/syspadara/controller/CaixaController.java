@@ -14,58 +14,43 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import io.swagger.annotations.ApiOperation;
-import syspadara.dto.caixa.CaixaAddVendas;
-import syspadara.dto.caixa.CaixaCadastro;
 import syspadara.model.Caixa;
 import syspadara.service.CaixaService;
 
 @Controller
 @RequestMapping("caixas")
 public class CaixaController {
-
+	
 	@Autowired
 	private CaixaService service;
 	
-	@ApiOperation(value = "Retorna os dados de um caixa")
-	@GetMapping("{id}")
+	@PostMapping("/")
+	public ResponseEntity<Caixa> createCaixa(@RequestBody Caixa caixa){
+		service.createCaixa(caixa);
+		return new ResponseEntity<Caixa>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/{id}")
 	public ResponseEntity<Caixa> readCaixa(@PathVariable(name = "id") Long id){
 		Caixa caixa = service.readCaixa(id);
 		return new ResponseEntity<Caixa>(caixa, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "Cria um caixa")
-	@PostMapping("novo")
-	public ResponseEntity<Caixa> createCaixa(@RequestBody CaixaCadastro cadastro){
-		service.createCaixa(cadastro);
-		return new ResponseEntity<Caixa>(HttpStatus.CREATED);
-	}
-	
-	@ApiOperation(value = "Atualiza os dados de um caixa")
-	@PutMapping("atualizacao")
+	@PutMapping("/")
 	public ResponseEntity<Caixa> updateCaixa(@RequestBody Caixa caixa){
 		service.updateCaixa(caixa);
 		return new ResponseEntity<Caixa>(HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "Exclui um caixa")
-	@DeleteMapping("{id}/exclusao")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<Caixa> deleteCaixa(@PathVariable(name = "id") Long id){
 		service.deleteCaixa(id);
 		return new ResponseEntity<Caixa>(HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "Retorna os dados de todos os caixas cadastrados")
-	@GetMapping("todos")
+	@GetMapping("/")
 	public ResponseEntity<List<Caixa>> readAll(){
 		List<Caixa> caixas = service.readAll();
 		return new ResponseEntity<List<Caixa>>(caixas, HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "Adicionar uma venda a um determinado caixa")
-	@PutMapping("atualizacao/venda")
-	public ResponseEntity<Caixa> addCaixaVenda(@RequestBody CaixaAddVendas addVendas){
-		service.addVendas(addVendas);
-		return new ResponseEntity<Caixa>(HttpStatus.OK);
 	}
 }

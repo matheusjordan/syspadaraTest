@@ -17,11 +17,11 @@ public class Caixa implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "caixa_id")
+	@Column
 	private Long id;
 	
-//	@Column(name = "caixa_saldo", nullable = false)
-//	private double saldo;
+	@Column(nullable = false)
+	private double saldo;
 
 	@OneToMany
 	private List<Venda> vendas;

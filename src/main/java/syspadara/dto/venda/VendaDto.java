@@ -3,7 +3,7 @@ package syspadara.dto.venda;
 import java.io.Serializable;
 import java.util.List;
 
-public class VendaCadastro implements Serializable{
+public class VendaDto implements Serializable{
 
 	private static final long serialVersionUID = 4923813067800086493L;
 	
@@ -11,9 +11,9 @@ public class VendaCadastro implements Serializable{
 	private List<Integer> produtosQntd;
 	
 	//Construtores
-	private VendaCadastro() {};
+	private VendaDto() {};
 	
-	private VendaCadastro(List<Long> produtosId, List<Integer> produtosQntd) {
+	private VendaDto(List<Long> produtosId, List<Integer> produtosQntd) {
 		this.produtosId = produtosId;
 		this.produtosQntd = produtosQntd;
 	}
