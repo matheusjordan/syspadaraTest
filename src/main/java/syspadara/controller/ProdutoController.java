@@ -2,6 +2,8 @@ package syspadara.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.ApiOperation;
+import syspadara.dto.produto.ProdutoDto;
 import syspadara.model.Produto;
 import syspadara.service.ProdutoService;
 
@@ -34,7 +37,7 @@ public class ProdutoController {
 
 	@ApiOperation(value = "Cria um produto")
 	@PostMapping("/")
-	public ResponseEntity<Produto> createProduto(@RequestBody Produto produto) {
+	public ResponseEntity<Produto> createProduto(@RequestBody @Valid ProdutoDto produto) {
 		service.createProduto(produto);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

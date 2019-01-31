@@ -2,6 +2,8 @@ package syspadara.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +37,14 @@ public class VendaController {
 	
 	@ApiOperation(value = "Cria uma venda")
 	@PostMapping("/")
-	public ResponseEntity<Venda> createVenda(@RequestBody VendaDto cadastro) throws Exception{
+	public ResponseEntity<Venda> createVenda(@RequestBody @Valid VendaDto cadastro) throws Exception{
 		service.createVenda(cadastro);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@ApiOperation(value = "Atualiza os dados de uma venda")
 	@PutMapping("/")
-	public ResponseEntity<Venda> updateVenda(@RequestBody VendaDto venda){
+	public ResponseEntity<Venda> updateVenda(@RequestBody @Valid VendaDto venda){
 		service.updateVenda(venda);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

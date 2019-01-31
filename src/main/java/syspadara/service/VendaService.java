@@ -30,7 +30,10 @@ public class VendaService {
 			venda.setProdutos(produtos);
 			venda.setValor(produtoSer.valueOfProducts(produtos));
 			venda.setStatus(0);
-			vendaRepo.save(venda);
+			
+			for(Produto prod : venda.getProdutos()) {
+				System.out.println(prod.getNome() +"\n"+ prod.getValor() +"\n"+ prod.getQntd());
+			}
 			System.out.println("Criado");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

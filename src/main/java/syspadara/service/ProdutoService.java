@@ -3,9 +3,12 @@ package syspadara.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import syspadara.dto.produto.ProdutoDto;
 import syspadara.dto.venda.VendaProduto;
 import syspadara.model.Produto;
 import syspadara.repository.ProdutoRepository;
@@ -17,10 +20,11 @@ public class ProdutoService {
 	private ProdutoRepository produtoRepo;
 
 	// Funções CRUD***
-	public void createProduto(Produto produto) {
+	public void createProduto(ProdutoDto produto) {
 		try {
 			if (this.validateProduto(produto.getQntd(), produto.getValor())) {
-				produtoRepo.save(produto);
+				Produto prod = new Produto(produto.getNome(), produto.getValor(), produto.getQntd());
+				produtoRepo.save(prod);
 				System.out.println("Criado");
 			}
 		} catch (Exception e) {
@@ -96,7 +100,7 @@ public class ProdutoService {
 	public List<Produto> changeToProduto(List<VendaProduto> produtosVenda) {
 		List<Produto> produtos = new ArrayList<>();
 
-		for (VendaProduto prodVenda : produtosVenda) {
+		for (@Valid VendaProduto prodVenda : produtosVenda) {
 			Produto produto = new Produto();
 			Produto prod = this.readProduto(prodVenda.getId());
 

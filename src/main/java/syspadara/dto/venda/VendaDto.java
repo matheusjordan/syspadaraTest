@@ -3,11 +3,21 @@ package syspadara.dto.venda;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class VendaDto implements Serializable{
 
 	private static final long serialVersionUID = 4923813067800086493L;
 	
+	//@NotNull | @NotEmpty-> Bean Validation -> serve para validar dados que eu passo atrvés do dto
+	
+	@NotNull
+	@NotEmpty
 	private List<Long> produtosId;
+	
+	@NotNull
+	@NotEmpty
 	private List<Integer> produtosQntd;
 	
 	//Construtores
