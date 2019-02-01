@@ -53,26 +53,6 @@ public class VendaService {
 	}
 	// *************
 
-	// Algoritmo de verificação de uma venda - new
-//	public List<Produto> validateVenda(VendaDto cadastro) {
-//		List<Boolean> validas = new ArrayList<>();
-//
-//		for (int i = 0; i < cadastro.getProdutosId().size(); i++) {
-//
-//			if (produtoSer.validateQntdVenda(cadastro.getProdutosId().get(i), cadastro.getProdutosQntd().get(i))) {
-//				validas.add(true);
-//			} else {
-//				validas.add(false);
-//			}
-//		}
-//		
-//		List<VendaProduto> produtosVenda = new ArrayList<>();
-//		
-//		List<Produto> produtos = produtoSer.changeToProduto(produtosVenda);
-//		
-//		return produtos;
-//	}
-
 	public List<Venda> readAll() {
 		return vendaRepo.findAll();
 	}
