@@ -1,13 +1,12 @@
 package syspadara.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import syspadara.dto.venda.VendaDto;
-import syspadara.dto.venda.VendaProduto;
+import syspadara.dto.Venda.AlterarVenDto;
+import syspadara.dto.Venda.CadastroVenDto;
 import syspadara.model.Produto;
 import syspadara.model.Venda;
 import syspadara.repository.VendaRepository;
@@ -22,42 +21,29 @@ public class VendaService {
 	private ProdutoService produtoSer;
 
 	// Funções CRUD***
-	public void createVenda(VendaDto cadastro) {
-		try {
-			List<Produto> produtos = this.validateVenda(cadastro);
-			Venda venda = new Venda();
+	public void createVenda(CadastroVenDto vendaCadastro) {
+		Venda venda = new Venda();
 
-			venda.setProdutos(produtos);
-			venda.setValor(produtoSer.valueOfProducts(produtos));
-			venda.setStatus(0);
-			
-			for(Produto prod : venda.getProdutos()) {
-				System.out.println(prod.getNome() +"\n"+ prod.getValor() +"\n"+ prod.getQntd());
-			}
-			System.out.println("Criado");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		venda.setProdutos(produtoSer.convertToProduto(vendaCadastro.getProdutos()));
+		
+//		vendaRepo.save(venda);
+		for(Produto prod : venda.getProdutos()) {
+			System.out.println(prod.getId() +"\n"+ prod.getNome() +"\n"+ prod.getQntd() +"\n"+ prod.getValor());
 		}
+		System.out.println("Criado");
 	}
 
 	public Venda readVenda(Long id) {
 		return vendaRepo.findById(id).get();
 	}
 
-	public void updateVenda(VendaDto cadastro) {
-		try {
-			List<Produto> produtos = this.validateVenda(cadastro);
-			Venda venda = new Venda();
-
-			venda.setProdutos(produtos);
-			venda.setValor(produtoSer.valueOfProducts(produtos));
-			venda.setStatus(0);
-
-			vendaRepo.save(venda);
-			System.out.println("Atualizado");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+	public void updateVenda(AlterarVenDto vendaAltera) {
+		Venda venda = vendaRepo.findById(vendaAltera.getId()).get();
+		
+		venda.setProdutos(produtoSer.convertToProduto(vendaAltera.getProdutos()));
+		
+		vendaRepo.save(venda);
+		System.out.println("Atualizado");
 	}
 
 	public void deleteVenda(Long id) {
@@ -68,41 +54,24 @@ public class VendaService {
 	// *************
 
 	// Algoritmo de verificação de uma venda - new
-	public List<Produto> validateVenda(VendaDto cadastro) throws Exception {
-		List<Boolean> validas = new ArrayList<>();
-
-		// Verifica o tamanho das listas
-		if (cadastro.getProdutosId().size() == cadastro.getProdutosQntd().size()) {
-
-			for (int i = 0; i < cadastro.getProdutosId().size(); i++) {
-
-				if (produtoSer.validateQntdVenda(cadastro.getProdutosId().get(i), cadastro.getProdutosQntd().get(i))) {
-					validas.add(true);
-				} else {
-					validas.add(false);
-				}
-			}
-
-			// Verifica se uma venda foi válida
-			if (validas.contains(false)) {
-				throw new Exception("Erro! Verifique a quantidade de seus produtos!");
-			} else {
-				List<VendaProduto> produtosVenda = new ArrayList<>();
-
-				for (int i = 0; i < cadastro.getProdutosId().size(); i++) {
-					VendaProduto produto = new VendaProduto(cadastro.getProdutosId().get(i),
-							cadastro.getProdutosQntd().get(i));
-					produtosVenda.add(produto);
-					produtoSer.atualizaQnt(produto.getId(), produto.getQntd());
-				}
-
-				List<Produto> produtos = produtoSer.changeToProduto(produtosVenda);
-
-				return produtos;
-			}
-		}
-		throw new Exception("Erro! Verifique os produtos adicionados e suas respectivas quantidades!");
-	}
+//	public List<Produto> validateVenda(VendaDto cadastro) {
+//		List<Boolean> validas = new ArrayList<>();
+//
+//		for (int i = 0; i < cadastro.getProdutosId().size(); i++) {
+//
+//			if (produtoSer.validateQntdVenda(cadastro.getProdutosId().get(i), cadastro.getProdutosQntd().get(i))) {
+//				validas.add(true);
+//			} else {
+//				validas.add(false);
+//			}
+//		}
+//		
+//		List<VendaProduto> produtosVenda = new ArrayList<>();
+//		
+//		List<Produto> produtos = produtoSer.changeToProduto(produtosVenda);
+//		
+//		return produtos;
+//	}
 
 	public List<Venda> readAll() {
 		return vendaRepo.findAll();

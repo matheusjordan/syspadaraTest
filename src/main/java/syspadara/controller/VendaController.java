@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.ApiOperation;
-import syspadara.dto.venda.VendaDto;
+import syspadara.dto.Venda.AlterarVenDto;
+import syspadara.dto.Venda.CadastroVenDto;
 import syspadara.model.Venda;
 import syspadara.service.VendaService;
 
@@ -37,15 +38,15 @@ public class VendaController {
 	
 	@ApiOperation(value = "Cria uma venda")
 	@PostMapping("/")
-	public ResponseEntity<Venda> createVenda(@RequestBody @Valid VendaDto cadastro) throws Exception{
-		service.createVenda(cadastro);
+	public ResponseEntity<Venda> createVenda(@RequestBody @Valid CadastroVenDto vendaCadastro) {
+		service.createVenda(vendaCadastro);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@ApiOperation(value = "Atualiza os dados de uma venda")
 	@PutMapping("/")
-	public ResponseEntity<Venda> updateVenda(@RequestBody @Valid VendaDto venda){
-		service.updateVenda(venda);
+	public ResponseEntity<Venda> updateVenda(@RequestBody @Valid AlterarVenDto vendaAltera){
+		service.updateVenda(vendaAltera);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	

@@ -1,60 +1,52 @@
 package syspadara.dto.produto;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
-import syspadara.anotations.NotNegative;
-
-public class ProdutoDto {
+public class CadastroProdDto {
 	
-	@NotEmpty
-	@NotNull
+	@NotBlank
 	private String nome;
+	
+	@NotNull
+	@Positive
+	private Double valor;
 	
 	@NotNull
 	@PositiveOrZero
 	private Integer qntd;
 	
-	@NotNegative
-	private Double valor;
-
-	//CONSTRUTORES
-	public ProdutoDto() {
+	//Construtores
+	public CadastroProdDto() {
 	}
 	
-	public ProdutoDto(String nome, Integer qntd, Double valor) {
+	public CadastroProdDto(String nome, Double valor, Integer qntd) {
 		this.nome = nome;
-		this.qntd = qntd;
 		this.valor = valor;
+		this.qntd = qntd;
 	}
-
-	//METODOS
+	
+	//Metodos
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public Integer getQntd() {
-		return qntd;
-	}
-
-	public void setQntd(Integer qntd) {
-		this.qntd = qntd;
-	}
-
 	public Double getValor() {
 		return valor;
 	}
-
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
+	public Integer getQntd() {
+		return qntd;
+	}
+	public void setQntd(Integer qntd) {
+		this.qntd = qntd;
+	}
 	
 	
-
 }

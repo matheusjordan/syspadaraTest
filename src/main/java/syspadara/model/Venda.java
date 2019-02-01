@@ -24,9 +24,6 @@ public class Venda implements Serializable {
 	@ManyToMany
 	@JoinTable(name = "venda_produtos")
 	private List<Produto> produtos;
-
-	@Column(name = "valor_total") 
-	private double valor;
 	
 	@Column
 	private int status;
@@ -35,10 +32,8 @@ public class Venda implements Serializable {
 	public Venda() {
 	}
 	
-	public Venda(List<Produto> produtos, double valor, int status) {
+	public Venda(List<Produto> produtos) {
 		this.produtos = produtos;
-		this.valor = valor;
-		this.status = status;
 	}
 
 	// METODOS
@@ -60,14 +55,6 @@ public class Venda implements Serializable {
 	
 	public void addProduto(Produto produto) {
 		this.produtos.add(produto);
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
 	}
 
 	public int getStatus() {

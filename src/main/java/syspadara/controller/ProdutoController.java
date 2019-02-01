@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.ApiOperation;
-import syspadara.dto.produto.ProdutoDto;
+import syspadara.dto.produto.AlterarProdDto;
+import syspadara.dto.produto.CadastroProdDto;
 import syspadara.model.Produto;
 import syspadara.service.ProdutoService;
 
@@ -37,15 +38,15 @@ public class ProdutoController {
 
 	@ApiOperation(value = "Cria um produto")
 	@PostMapping("/")
-	public ResponseEntity<Produto> createProduto(@RequestBody @Valid ProdutoDto produto) {
-		service.createProduto(produto);
+	public ResponseEntity<Produto> createProduto(@RequestBody @Valid CadastroProdDto produtoCadastro) {
+		service.createProduto(produtoCadastro);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@ApiOperation(value = "Atualiza os dados de um produto")
 	@PutMapping("/")
-	public ResponseEntity<Produto> updateProduto(@RequestBody Produto produto) {
-		service.updateProduto(produto);
+	public ResponseEntity<Produto> updateProduto(@RequestBody @Valid AlterarProdDto produtoAltera) {
+		service.updateProduto(produtoAltera);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
