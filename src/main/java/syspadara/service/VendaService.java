@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import syspadara.dto.Venda.AlterarVenDto;
 import syspadara.dto.Venda.CadastroVenDto;
-import syspadara.model.Produto;
 import syspadara.model.Venda;
 import syspadara.repository.VendaRepository;
 
@@ -18,18 +17,15 @@ public class VendaService {
 	private VendaRepository vendaRepo;
 
 	@Autowired
-	private ProdutoService produtoSer;
+	private ProdutoVendaService prodVendaSer;
 
 	// Funções CRUD***
 	public void createVenda(CadastroVenDto vendaCadastro) {
 		Venda venda = new Venda();
-
-		venda.setProdutos(produtoSer.convertToProduto(vendaCadastro.getProdutos()));
 		
-//		vendaRepo.save(venda);
-		for(Produto prod : venda.getProdutos()) {
-			System.out.println(prod.getId() +"\n"+ prod.getNome() +"\n"+ prod.getQntd() +"\n"+ prod.getValor());
-		}
+		venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaCadastro.getProdutos()));
+		
+		vendaRepo.save(venda);
 		System.out.println("Criado");
 	}
 
@@ -40,7 +36,7 @@ public class VendaService {
 	public void updateVenda(AlterarVenDto vendaAltera) {
 		Venda venda = vendaRepo.findById(vendaAltera.getId()).get();
 		
-		venda.setProdutos(produtoSer.convertToProduto(vendaAltera.getProdutos()));
+		venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaAltera.getProdutos()));
 		
 		vendaRepo.save(venda);
 		System.out.println("Atualizado");

@@ -8,8 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Venda implements Serializable {
@@ -21,9 +20,8 @@ public class Venda implements Serializable {
 	@Column
 	private Long id;
 
-	@ManyToMany
-	@JoinTable(name = "venda_produtos")
-	private List<Produto> produtos;
+	@OneToMany
+	private List<ProdutoVenda> produtos;
 	
 	@Column
 	private int status;
@@ -32,7 +30,7 @@ public class Venda implements Serializable {
 	public Venda() {
 	}
 	
-	public Venda(List<Produto> produtos) {
+	public Venda(List<ProdutoVenda> produtos) {
 		this.produtos = produtos;
 	}
 
@@ -45,16 +43,12 @@ public class Venda implements Serializable {
 		this.id = id;
 	}
 
-	public List<Produto> getProdutos() {
+	public List<ProdutoVenda> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(List<ProdutoVenda> produtos) {
 		this.produtos = produtos;
-	}
-	
-	public void addProduto(Produto produto) {
-		this.produtos.add(produto);
 	}
 
 	public int getStatus() {

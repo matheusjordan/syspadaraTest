@@ -1,12 +1,10 @@
 package syspadara.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import syspadara.dto.Venda.ProdutoVendaDto;
 import syspadara.dto.produto.AlterarProdDto;
 import syspadara.dto.produto.CadastroProdDto;
 import syspadara.model.Produto;
@@ -46,8 +44,7 @@ public class ProdutoService {
 	}
 
 	public void deleteProduto(Long id) {
-		Produto produto = produtoRepo.findById(id).get();
-		produtoRepo.delete(produto);
+		produtoRepo.deleteById(id);
 		System.out.println("Deletado");
 	}
 	// *************
@@ -73,17 +70,7 @@ public class ProdutoService {
 		return valor;
 	}
 	
-	//Função que converte ProdutoVendaDto em Produto
-	public List<Produto> convertToProduto(List<ProdutoVendaDto> produtosVenda){
-		List<Produto> produtos = new ArrayList<>();
-		
-		for(ProdutoVendaDto prod : produtosVenda) {
-			Produto produto = produtoRepo.findById(prod.getId()).get();
-			produtos.add(produto);
-		}
-		
-		return produtos;
-	}
+	//Função Change to produto está em ProdutoVenda
 
 	public List<Produto> findAllNomes(String nome) {
 		return produtoRepo.buscarProduto(nome);

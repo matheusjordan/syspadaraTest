@@ -7,7 +7,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +52,6 @@ public class ProdutoController {
 
 	@ApiOperation(value = "Exclui um produto")
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')") //Habilita que apenas o ADMIN possa deletar algum produto
 	public ResponseEntity<Produto> removeProduto(@PathVariable(name = "id") Long id) {
 		service.deleteProduto(id);
 		return new ResponseEntity<Produto>(HttpStatus.OK);

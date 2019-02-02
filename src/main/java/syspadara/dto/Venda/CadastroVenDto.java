@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
+import syspadara.dto.produto.ProdutoVendaDto;
+
 public class CadastroVenDto {
 	
 	@NotEmpty
