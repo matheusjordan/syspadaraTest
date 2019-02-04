@@ -38,14 +38,14 @@ public class VendaController {
 	
 	@ApiOperation(value = "Cria uma venda")
 	@PostMapping("/")
-	public ResponseEntity<Venda> createVenda(@RequestBody @Valid CadastroVenDto vendaCadastro) {
+	public ResponseEntity<Venda> createVenda(@RequestBody @Valid CadastroVenDto vendaCadastro) throws Exception {
 		service.createVenda(vendaCadastro);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	@ApiOperation(value = "Atualiza os dados de uma venda")
 	@PutMapping("/")
-	public ResponseEntity<Venda> updateVenda(@RequestBody @Valid AlterarVenDto vendaAltera){
+	public ResponseEntity<Venda> updateVenda(@RequestBody @Valid AlterarVenDto vendaAltera) throws Exception{
 		service.updateVenda(vendaAltera);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

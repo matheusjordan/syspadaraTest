@@ -45,15 +45,12 @@ public class Caixa implements Serializable{
 	}
 
 	public void setVendas(List<Venda> vendas) {
-		for(Venda venda : vendas) {
-			venda.setStatus(1);
-		}
 		this.vendas = vendas;
+		
 	}
 	
 	public void addVendas(List<Venda> vendas) {
 		for(Venda venda : vendas) {
-			venda.setStatus(1);
 			this.vendas.add(venda);
 		}
 	}

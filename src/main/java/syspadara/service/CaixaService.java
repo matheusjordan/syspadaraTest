@@ -22,7 +22,11 @@ public class CaixaService {
 	// Funções CRUD***
 	public void createCaixa(CadastroCaixaDto cadastroCaixa) {
 		Caixa caixa = new Caixa();
-		caixa.setVendas(vendaSer.findVendas(cadastroCaixa.getVendas_id()));
+		
+		//1- Pega a lista de IDs //2- Tranformas os Ids em ProdutoVenda //3- Finaliza a venda
+		vendaSer.finalizeVenda(vendaSer.findVendas(cadastroCaixa.getVendasId()));
+		
+		caixa.setVendas(vendaSer.findVendas(cadastroCaixa.getVendasId()));
 		caixaRepo.save(caixa);
 		System.out.println("Criado");
 	}
@@ -33,6 +37,9 @@ public class CaixaService {
 	
 	public void updateCaixa(AlterarCaixaDto updateCaixa) {
 		Caixa caixa = caixaRepo.findById(updateCaixa.getCaixaId()).get();
+		
+		vendaSer.finalizeVenda(vendaSer.findVendas(updateCaixa.getVendasId()));
+		
 		caixa.setVendas(vendaSer.findVendas(updateCaixa.getVendasId()));
 		caixaRepo.save(caixa);
 		System.out.println("Alterado");
@@ -49,6 +56,9 @@ public class CaixaService {
 	
 	public void addVenda(AlterarCaixaDto updateCaixa) {
 		Caixa caixa = caixaRepo.findById(updateCaixa.getCaixaId()).get();
+		
+		vendaSer.finalizeVenda(vendaSer.findVendas(updateCaixa.getVendasId()));
+		
 		caixa.addVendas(vendaSer.findVendas(updateCaixa.getVendasId()));
 		caixaRepo.save(caixa);
 		System.out.println("Adicionado");

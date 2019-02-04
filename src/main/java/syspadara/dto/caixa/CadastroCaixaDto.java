@@ -9,22 +9,20 @@ public class CadastroCaixaDto {
 	
 	@ListValider
 	@ListIdsValider
-	private List<Long> vendas_id;
+	private List<Long> vendasId;
 	
 	public CadastroCaixaDto() {
 	}
 
-	public CadastroCaixaDto(List<Long> vendas_id) {
-		this.vendas_id = vendas_id;
+	public CadastroCaixaDto(List<Long> vendasId) {
+		this.vendasId = vendasId;
 	}
 
-	public List<Long> getVendas_id() {
-		return vendas_id;
+	public List<Long> getVendasId() {
+		return vendasId;
 	}
 
-	public void setVendas_id(List<Long> vendas_id) {
-		this.vendas_id = vendas_id;
+	public void setVendas_id(List<Long> vendasId) {
+		this.vendasId = vendasId;
 	}
-
-	
 }

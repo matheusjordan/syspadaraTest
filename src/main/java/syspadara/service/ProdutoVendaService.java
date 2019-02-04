@@ -14,28 +14,28 @@ import syspadara.repository.ProdutoVendaRepository;
 public class ProdutoVendaService {
 
 	@Autowired
-	private ProdutoVendaRepository prodVendaSer;
+	private ProdutoVendaRepository prodVendaRepo;
 	
 	@Autowired
-	private EstoqueService estoqueRepo;
+	private EstoqueService estoqueSer;
 
 	// Funções CRUD***
 	public void createProdutoVenda(ProdutoVenda produto) {
-		prodVendaSer.save(produto);
+		prodVendaRepo.save(produto);
 		System.out.println("Vendido");
 	}
 
 	public ProdutoVenda readProduto(Long id) {
-		return prodVendaSer.findById(id).get();
+		return prodVendaRepo.findById(id).get();
 	}
 
 	public void updateProduto(ProdutoVenda produto) {
-		prodVendaSer.save(produto);
+		prodVendaRepo.save(produto);
 		System.out.println("Alterado");
 	}
 
 	public void deleteProduto(Long id) {
-		prodVendaSer.deleteById(id);
+		prodVendaRepo.deleteById(id);
 		System.out.println("Deletado");
 	}
 	// *************
@@ -49,9 +49,10 @@ public class ProdutoVendaService {
 			
 			produto.setProdutoId(prod.getId());
 			produto.setQntd(prod.getQntd());
-			produto.setValorTotal(prod.getQntd() * estoqueRepo.readEstoque(prod.getId()).getValor());
+			produto.setValorTotal(prod.getQntd() * estoqueSer.readEstoque(prod.getId()).getValor());
 			produtos.add(produto);
-			prodVendaSer.save(produto);
+			
+			prodVendaRepo.save(produto);
 		}
 		
 		return produtos;

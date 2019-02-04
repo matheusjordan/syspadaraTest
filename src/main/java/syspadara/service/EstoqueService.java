@@ -1,5 +1,6 @@
 package syspadara.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import syspadara.dto.produto.AlterarProdDto;
 import syspadara.dto.produto.CadastroProdDto;
+import syspadara.dto.produto.ProdutoVendaDto;
 import syspadara.model.Estoque;
+import syspadara.model.ProdutoVenda;
 import syspadara.repository.EstoqueRepository;
 
 @Service
@@ -53,13 +56,13 @@ public class EstoqueService {
 		return estoqueRepo.findAll();
 	}
 
-	// Função para encontrar produtos pelo ID - new
+	// Função para encontrar produtos pelo ID
 	public List<Estoque> findProdutosEstoque(List<Long> ids) {
 		List<Estoque> produtos = estoqueRepo.findAllById(ids);
 		return produtos;
 	}
 
-	// Função que retorna o valor de uma lista de produtos - new
+	// Função que retorna o valor de uma lista de produtos
 	public double valueOfProducts(List<Estoque> produtos) {
 		double valor = 0;
 
@@ -72,7 +75,32 @@ public class EstoqueService {
 	
 	//Função Change to produto está em ProdutoVenda
 
+	//Função que retorna os dados de um produto pelo nome
 	public List<Estoque> findAllNomes(String nome) {
 		return estoqueRepo.buscarProduto(nome);
+	}
+	
+	//Função que verifica se uma venda é valida! - new
+	public boolean isValid(List<ProdutoVendaDto> produtos) {
+		List<Boolean> isvalid = new ArrayList<>();
+		
+		for(ProdutoVendaDto produto : produtos) {
+			if(produto.getQntd() <= this.readEstoque(produto.getId()).getQntd()) {
+				isvalid.add(true);
+			} else {
+				isvalid.add(false);
+			}
+		}
+		
+		return isvalid.contains(false) ? false : true;
+	}
+	
+	//Função que decrementa o estoque de um produto após uma venda - new
+	public void decrementaEstoque(List<ProdutoVenda> produtos) {
+		
+		for(ProdutoVenda produto : produtos) {
+			Estoque estoque = this.readEstoque(produto.getProdutoId());
+			estoque.setQntd(estoque.getQntd() - produto.getQntd());
+		}
 	}
 }

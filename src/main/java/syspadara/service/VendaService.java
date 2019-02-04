@@ -19,27 +19,35 @@ public class VendaService {
 	@Autowired
 	private ProdutoVendaService prodVendaSer;
 
+	@Autowired
+	private EstoqueService estoqueSer;
+
 	// Funções CRUD***
-	public void createVenda(CadastroVenDto vendaCadastro) {
+	public void createVenda(CadastroVenDto vendaCadastro) throws Exception {
 		Venda venda = new Venda();
-		
-		venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaCadastro.getProdutos()));
-		
-		vendaRepo.save(venda);
-		System.out.println("Criado");
+		if (estoqueSer.isValid(vendaCadastro.getProdutos())) {
+			venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaCadastro.getProdutos()));
+
+			vendaRepo.save(venda);
+			System.out.println("Criado");
+		} else throw new Exception("Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+
 	}
 
 	public Venda readVenda(Long id) {
 		return vendaRepo.findById(id).get();
 	}
 
-	public void updateVenda(AlterarVenDto vendaAltera) {
+	public void updateVenda(AlterarVenDto vendaAltera) throws Exception{
 		Venda venda = vendaRepo.findById(vendaAltera.getId()).get();
-		
-		venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaAltera.getProdutos()));
-		
-		vendaRepo.save(venda);
-		System.out.println("Atualizado");
+
+		if (estoqueSer.isValid(vendaAltera.getProdutos())) {
+			venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaAltera.getProdutos()));
+
+			vendaRepo.save(venda);
+			System.out.println("Atualizado");
+		} else throw new Exception("Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+
 	}
 
 	public void deleteVenda(Long id) {
@@ -61,5 +69,14 @@ public class VendaService {
 	// Buscar venda pelo Id
 	public Venda findVenda(Long vendaId) {
 		return vendaRepo.findById(vendaId).get();
+	}
+	
+	//Função que finaliza uma venda
+	public void finalizeVenda(List<Venda> vendas) {
+		for(Venda venda : vendas) {
+			venda.setStatus(1);
+			estoqueSer.decrementaEstoque(venda.getProdutos());
+			
+		}
 	}
 }
