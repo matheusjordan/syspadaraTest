@@ -19,49 +19,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import io.swagger.annotations.ApiOperation;
 import syspadara.dto.produto.AlterarProdDto;
 import syspadara.dto.produto.CadastroProdDto;
-import syspadara.model.Produto;
-import syspadara.service.ProdutoService;
+import syspadara.model.Estoque;
+import syspadara.service.EstoqueService;
 
 @Controller
-@RequestMapping(path = "produtos")
-public class ProdutoController {
+@RequestMapping(path = "estoques")
+public class EstoqueController {
 
 	@Autowired
-	private ProdutoService service;
+	private EstoqueService service;
 
-	@ApiOperation(value = "Retorna os dados de um produto")
+	@ApiOperation(value = "Retorna os dados de um produto no estoque")
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> readProduto(@PathVariable(name = "id") Long id) {
-		Produto produto = service.readProduto(id);
-		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
+	public ResponseEntity<Estoque> readEstoque(@PathVariable(name = "id") Long id) {
+		Estoque produto = service.readEstoque(id);
+		return new ResponseEntity<Estoque>(produto, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Cria um produto")
 	@PostMapping("/")
-	public ResponseEntity<Produto> createProduto(@RequestBody @Valid CadastroProdDto produtoCadastro) {
-		service.createProduto(produtoCadastro);
+	public ResponseEntity<Estoque> createEstoque(@RequestBody @Valid CadastroProdDto produtoCadastro) {
+		service.createEstoque(produtoCadastro);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
 	@ApiOperation(value = "Atualiza os dados de um produto")
 	@PutMapping("/")
-	public ResponseEntity<Produto> updateProduto(@RequestBody @Valid AlterarProdDto produtoAltera) {
-		service.updateProduto(produtoAltera);
+	public ResponseEntity<Estoque> updateEstoque(@RequestBody @Valid AlterarProdDto produtoAltera) {
+		service.updateEstoque(produtoAltera);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Exclui um produto")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Produto> removeProduto(@PathVariable(name = "id") Long id) {
-		service.deleteProduto(id);
-		return new ResponseEntity<Produto>(HttpStatus.OK);
+	public ResponseEntity<Estoque> removeEstoque(@PathVariable(name = "id") Long id) {
+		service.deleteEstoque(id);
+		return new ResponseEntity<Estoque>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Retorna os dados de todos os produto")
 	@GetMapping("/")
-	public ResponseEntity<List<Produto>> listAll() {
-		List<Produto> produtos = service.readAll();
-		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
+	public ResponseEntity<List<Estoque>> listAll() {
+		List<Estoque> produtos = service.readAll();
+		return new ResponseEntity<List<Estoque>>(produtos, HttpStatus.OK);
 	}
 
 //	@ApiOperation(value = "Retonar os dados de de um produto pelo nome")
@@ -73,9 +73,9 @@ public class ProdutoController {
 
 	@ApiOperation(value = "Retorna os dados de produtos que possuem caracters em comum")
 	@GetMapping("find/{nome}")
-	public ResponseEntity<List<Produto>> findAllByNome(@PathVariable(name = "nome") String nome) {
-		List<Produto> produtos = service.findAllNomes(nome);
-		return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK);
+	public ResponseEntity<List<Estoque>> findAllByNome(@PathVariable(name = "nome") String nome) {
+		List<Estoque> produtos = service.findAllNomes(nome);
+		return new ResponseEntity<List<Estoque>>(produtos, HttpStatus.OK);
 	}
 
 }

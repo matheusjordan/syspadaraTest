@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Produto implements Serializable {
+public class Estoque implements Serializable {
 
 	private static final long serialVersionUID = 8757157320173883249L;
 
@@ -27,10 +27,10 @@ public class Produto implements Serializable {
 	private int qntd;
 
 	// CONSTRUTORES
-	public Produto() {
+	public Estoque() {
 	}
 
-	public Produto(String nome, double valor, int qntd) {
+	public Estoque(String nome, double valor, int qntd) {
 		this.nome = nome;
 		this.valor = valor;
 		this.qntd = qntd;

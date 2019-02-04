@@ -17,7 +17,7 @@ public class ProdutoVendaService {
 	private ProdutoVendaRepository prodVendaSer;
 	
 	@Autowired
-	private ProdutoService produtoSer;
+	private EstoqueService estoqueRepo;
 
 	// Funções CRUD***
 	public void createProdutoVenda(ProdutoVenda produto) {
@@ -49,7 +49,7 @@ public class ProdutoVendaService {
 			
 			produto.setProdutoId(prod.getId());
 			produto.setQntd(prod.getQntd());
-			produto.setValorTotal(prod.getQntd() * produtoSer.readProduto(prod.getId()).getValor());
+			produto.setValorTotal(prod.getQntd() * estoqueRepo.readEstoque(prod.getId()).getValor());
 			produtos.add(produto);
 			prodVendaSer.save(produto);
 		}
