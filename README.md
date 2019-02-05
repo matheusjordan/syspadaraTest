@@ -14,3 +14,6 @@
 2- Criado validações validação de criação de uma venda.
 3- Criado funções finalizeVenda, isValid e decrementaVenda à Classe VENDA
 4- Implementado funções de validação de venda nas classes CAIXA, VENDA e ESTOQUE
+
+- Atualização para versao 2.2.1 -:
+1- Adicionado nova verificação de validação de venda

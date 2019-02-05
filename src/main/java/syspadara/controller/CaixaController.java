@@ -38,21 +38,21 @@ public class CaixaController {
 
 	@PostMapping("/")
 	@ApiOperation(value = "Cria um novo caixa")
-	public ResponseEntity<Caixa> createCaixa(@RequestBody @Valid CadastroCaixaDto caixaCadastro) {
+	public ResponseEntity<Caixa> createCaixa(@RequestBody @Valid CadastroCaixaDto caixaCadastro) throws Exception{
 		service.createCaixa(caixaCadastro);
 		return new ResponseEntity<Caixa>(HttpStatus.CREATED);
 	}
 
 	@PutMapping("/")
 	@ApiOperation(value = "Atualiza os dados de um caixa")
-	public ResponseEntity<Caixa> updateCaixa(@RequestBody @Valid AlterarCaixaDto caixaAlterar) {
+	public ResponseEntity<Caixa> updateCaixa(@RequestBody @Valid AlterarCaixaDto caixaAlterar) throws Exception{
 		service.updateCaixa(caixaAlterar);
 		return new ResponseEntity<Caixa>(HttpStatus.OK);
 	}
 	
 	@PutMapping("/venda")
 	@ApiOperation(value = "Adiciona uma venda a um determinado caixa")
-	public ResponseEntity<Caixa> addVenda(@RequestBody @Valid AlterarCaixaDto caixaAdd){
+	public ResponseEntity<Caixa> addVenda(@RequestBody @Valid AlterarCaixaDto caixaAdd) throws Exception{
 		service.addVenda(caixaAdd);
 		return new ResponseEntity<Caixa>(HttpStatus.OK);
 	}

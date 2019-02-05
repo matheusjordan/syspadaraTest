@@ -20,7 +20,7 @@ public class CaixaService {
 	private VendaService vendaSer;
 	
 	// Funções CRUD***
-	public void createCaixa(CadastroCaixaDto cadastroCaixa) {
+	public void createCaixa(CadastroCaixaDto cadastroCaixa) throws Exception{
 		Caixa caixa = new Caixa();
 		
 		//1- Pega a lista de IDs //2- Tranformas os Ids em ProdutoVenda //3- Finaliza a venda
@@ -35,7 +35,7 @@ public class CaixaService {
 		return caixaRepo.findById(id).get();
 	}
 	
-	public void updateCaixa(AlterarCaixaDto updateCaixa) {
+	public void updateCaixa(AlterarCaixaDto updateCaixa) throws Exception{
 		Caixa caixa = caixaRepo.findById(updateCaixa.getCaixaId()).get();
 		
 		vendaSer.finalizeVenda(vendaSer.findVendas(updateCaixa.getVendasId()));
@@ -54,7 +54,8 @@ public class CaixaService {
 		return caixaRepo.findAll();
 	}
 	
-	public void addVenda(AlterarCaixaDto updateCaixa) {
+	//Função que adiciona uma venda ao caixa
+	public void addVenda(AlterarCaixaDto updateCaixa) throws Exception{
 		Caixa caixa = caixaRepo.findById(updateCaixa.getCaixaId()).get();
 		
 		vendaSer.finalizeVenda(vendaSer.findVendas(updateCaixa.getVendasId()));

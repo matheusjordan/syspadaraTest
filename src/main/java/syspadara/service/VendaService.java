@@ -72,7 +72,7 @@ public class VendaService {
 	}
 	
 	//Função que finaliza uma venda
-	public void finalizeVenda(List<Venda> vendas) {
+	public void finalizeVenda(List<Venda> vendas) throws Exception{
 		for(Venda venda : vendas) {
 			venda.setStatus(1);
 			estoqueSer.decrementaEstoque(venda.getProdutos());

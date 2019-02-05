@@ -57,21 +57,21 @@ public class EstoqueService {
 	}
 
 	// Função para encontrar produtos pelo ID
-	public List<Estoque> findProdutosEstoque(List<Long> ids) {
-		List<Estoque> produtos = estoqueRepo.findAllById(ids);
-		return produtos;
-	}
+//	public List<Estoque> findProdutosEstoque(List<Long> ids) {
+//		List<Estoque> produtos = estoqueRepo.findAllById(ids);
+//		return produtos;
+//	}
 
 	// Função que retorna o valor de uma lista de produtos
-	public double valueOfProducts(List<Estoque> produtos) {
-		double valor = 0;
-
-		for (Estoque produto : produtos) {
-			valor += (produto.getValor() * produto.getQntd());
-		}
-
-		return valor;
-	}
+//	public double valueOfProducts(List<Estoque> produtos) {
+//		double valor = 0;
+//
+//		for (Estoque produto : produtos) {
+//			valor += (produto.getValor() * produto.getQntd());
+//		}
+//
+//		return valor;
+//	}
 	
 	//Função Change to produto está em ProdutoVenda
 
@@ -95,12 +95,31 @@ public class EstoqueService {
 		return isvalid.contains(false) ? false : true;
 	}
 	
-	//Função que decrementa o estoque de um produto após uma venda - new
-	public void decrementaEstoque(List<ProdutoVenda> produtos) {
+	//Função que verifica se um decremento é valido
+	public boolean isValidDecremento(List<ProdutoVenda> produtos) {
+		List<Boolean> isvalid = new ArrayList<>();
 		
 		for(ProdutoVenda produto : produtos) {
-			Estoque estoque = this.readEstoque(produto.getProdutoId());
-			estoque.setQntd(estoque.getQntd() - produto.getQntd());
+			Estoque prod = this.readEstoque(produto.getProdutoId());
+			
+			if(produto.getQntd() <= prod.getQntd()) {
+				isvalid.add(true);
+			} else {
+				isvalid.add(false);
+			}
 		}
+		
+		return isvalid.contains(false) ? false : true;
+	}
+	
+	//Função que decrementa o estoque de um produto após uma venda - new
+	public void decrementaEstoque(List<ProdutoVenda> produtos) throws Exception{
+		
+		if(this.isValidDecremento(produtos)) {
+			for(ProdutoVenda produto : produtos) {
+				Estoque estoque = this.readEstoque(produto.getProdutoId());
+				estoque.setQntd(estoque.getQntd() - produto.getQntd());
+			}
+		} else throw new Exception("Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");	
 	}
 }
