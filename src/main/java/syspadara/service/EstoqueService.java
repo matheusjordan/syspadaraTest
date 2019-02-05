@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import syspadara.controller.EstoqueQueryDto;
 import syspadara.dto.produto.AlterarProdDto;
 import syspadara.dto.produto.CadastroProdDto;
 import syspadara.dto.produto.ProdutoVendaDto;
@@ -121,5 +124,18 @@ public class EstoqueService {
 				estoque.setQntd(estoque.getQntd() - produto.getQntd());
 			}
 		} else throw new Exception("Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");	
+	}
+	
+	public List<Estoque> findByParam(EstoqueQueryDto query){
+		Estoque estoque = new Estoque(query.getNome(), query.getValor(), query.getQntd());
+		
+		ExampleMatcher matcher = ExampleMatcher.matchingAll()
+												.withMatcher("nome", match -> match.contains())
+												.withMatcher("valor", match -> match.contains())
+												.withMatcher("qntd", match -> match.contains())
+												.withIgnoreNullValues();
+		
+		Example<Estoque> searchExample = Example.of(estoque, matcher);
+		return estoqueRepo.findAll(searchExample);
 	}
 }
