@@ -72,10 +72,18 @@ public class EstoqueController {
 //	}
 
 	@ApiOperation(value = "Retorna os dados de produtos que possuem caracters em comum")
-	@GetMapping("find/{nome}")
+	@GetMapping("/find/{nome}")
 	public ResponseEntity<List<Estoque>> findAllByNome(@PathVariable(name = "nome") String nome) {
 		List<Estoque> produtos = service.findAllNomes(nome);
 		return new ResponseEntity<List<Estoque>>(produtos, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Busca dinamica de produtos por nome, preço e qntd")
+	@GetMapping("/find")
+	public ResponseEntity<List<Estoque>> findEstoque(EstoqueQueryDto query){
+		
+		List<Estoque> produtos = service.findByParam(query);
+		return new ResponseEntity<List<Estoque>>(produtos,HttpStatus.OK);
 	}
 
 }

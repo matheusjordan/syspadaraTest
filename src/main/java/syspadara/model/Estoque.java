@@ -21,22 +21,15 @@ public class Estoque implements Serializable {
 	private String nome;
 
 	@Column(nullable = false)
-	private double valor;
+	private Double valor;
 
 	@Column(nullable = false)
-	private int qntd;
+	private Integer qntd;
 
 	// CONSTRUTORES
 	public Estoque() {
 	}
 
-	public Estoque(String nome, double valor, int qntd) {
-		this.nome = nome;
-		this.valor = valor;
-		this.qntd = qntd;
-	}
-
-	// METODOS
 	public Long getId() {
 		return id;
 	}
@@ -53,19 +46,31 @@ public class Estoque implements Serializable {
 		this.nome = nome;
 	}
 
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 
-	public int getQntd() {
+	public Integer getQntd() {
 		return qntd;
 	}
 
-	public void setQntd(int qntd) {
+	public void setQntd(Integer qntd) {
 		this.qntd = qntd;
 	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Estoque(String nome, Double valor, Integer qntd) {
+		super();
+		this.nome = nome;
+		this.valor = valor;
+		this.qntd = qntd;
+	}
+
 }
