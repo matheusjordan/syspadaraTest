@@ -1,5 +1,6 @@
 package syspadara.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import syspadara.dto.Venda.AlterarVenDto;
 import syspadara.dto.Venda.CadastroVenDto;
+import syspadara.dto.pageament.FindDto;
+import syspadara.dto.pageament.VendaPageDto;
 import syspadara.model.Venda;
 import syspadara.repository.VendaRepository;
 
@@ -82,5 +85,27 @@ public class VendaService {
 			estoqueSer.decrementaEstoque(venda.getProdutos());
 
 		}
+	}
+	
+	//Função de paginação de vendas
+	public VendaPageDto pageamentVenda(FindDto find) {
+		List<Venda> vendas = this.readAll();
+		List<Venda> listagem = new ArrayList<>();
+		
+		Integer page = find.getPage();
+		Integer size = find.getSize();
+	
+		for(int i = ((page * size) - size); i < (page * size); i++) {
+			listagem.add(vendas.get(i));
+		}
+		
+		Integer totalPages = vendas.size() / size;
+		Integer firstPage = totalPages - (totalPages -1);
+		Integer finalPage = totalPages;
+		Integer actualPage = page;
+		Integer nextPage = page == finalPage ? finalPage : page + 1;
+		Integer previousPage = page == firstPage ? firstPage : page - 1;
+		
+		return new VendaPageDto(firstPage, finalPage, actualPage, previousPage, nextPage, totalPages, listagem);
 	}
 }

@@ -155,12 +155,12 @@ public class EstoqueService {
 			listagem.add(estoque.get(i));
 		}
 
-		Integer actualPage = page;
-		Integer previousPage = page - 1;
-		Integer nextPage = page + 1;
 		Integer totalPages = estoque.size() / size;
 		Integer firstPage = totalPages - (totalPages - 1);
 		Integer finalPage = totalPages;
+		Integer actualPage = page;
+		Integer previousPage = page == firstPage ? firstPage : page - 1;
+		Integer nextPage = page == finalPage ? finalPage : page + 1;
 		
 		return new EstoquePageDto(firstPage, finalPage,
 									actualPage, previousPage,

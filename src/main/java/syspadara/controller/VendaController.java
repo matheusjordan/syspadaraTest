@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import io.swagger.annotations.ApiOperation;
 import syspadara.dto.Venda.AlterarVenDto;
 import syspadara.dto.Venda.CadastroVenDto;
+import syspadara.dto.pageament.FindDto;
+import syspadara.dto.pageament.VendaPageDto;
 import syspadara.model.Venda;
 import syspadara.service.VendaService;
 
@@ -62,5 +64,12 @@ public class VendaController {
 	public ResponseEntity<List<Venda>> readAll(){
 		List<Venda> vendas = service.readAll();
 		return new ResponseEntity<List<Venda>>(vendas, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Pageamento das vendas criadas")
+	@GetMapping("/pageament")
+	public ResponseEntity<VendaPageDto> pageamentVenda(FindDto find){
+		VendaPageDto vendaPage = service.pageamentVenda(find);
+		return new ResponseEntity<VendaPageDto>(vendaPage, HttpStatus.OK);
 	}
 }

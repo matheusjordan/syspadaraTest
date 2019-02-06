@@ -23,3 +23,6 @@
 2- Melhoramento da lógica do algoritmo de VENDA e ESTOQUE
 3- Implementação da paginação de produtos no ESTOQUE
 4- Implementação de do pacote Dto de PAGINAÇÃO
+
+- Atualização para versao 2.3.0 -:
+1- Adicionado Paginação de vendas
