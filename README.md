@@ -17,3 +17,9 @@
 
 - Atualização para versao 2.2.1 -:
 1- Adicionado nova verificação de validação de venda
+
+- Atualização para versao 2.3.0 -:
+1- Adicionado nova busca dinâmica de produtos no ESTOQUE
+2- Melhoramento da lógica do algoritmo de VENDA e ESTOQUE
+3- Implementação da paginação de produtos no ESTOQUE
+4- Implementação de do pacote Dto de PAGINAÇÃO

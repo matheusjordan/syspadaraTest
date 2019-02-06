@@ -30,7 +30,9 @@ public class VendaService {
 
 			vendaRepo.save(venda);
 			System.out.println("Criado");
-		} else throw new Exception("Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+		} else
+			throw new Exception(
+					"Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
 
 	}
 
@@ -38,7 +40,7 @@ public class VendaService {
 		return vendaRepo.findById(id).get();
 	}
 
-	public void updateVenda(AlterarVenDto vendaAltera) throws Exception{
+	public void updateVenda(AlterarVenDto vendaAltera) throws Exception {
 		Venda venda = vendaRepo.findById(vendaAltera.getId()).get();
 
 		if (estoqueSer.isValid(vendaAltera.getProdutos())) {
@@ -46,7 +48,9 @@ public class VendaService {
 
 			vendaRepo.save(venda);
 			System.out.println("Atualizado");
-		} else throw new Exception("Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+		} else
+			throw new Exception(
+					"Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
 
 	}
 
@@ -70,13 +74,13 @@ public class VendaService {
 	public Venda findVenda(Long vendaId) {
 		return vendaRepo.findById(vendaId).get();
 	}
-	
-	//Função que finaliza uma venda
+
+	// Função que finaliza uma venda
 	public void finalizeVenda(List<Venda> vendas) throws Exception{
-		for(Venda venda : vendas) {
+		for (Venda venda : vendas) {
 			venda.setStatus(1);
 			estoqueSer.decrementaEstoque(venda.getProdutos());
-			
+
 		}
 	}
 }

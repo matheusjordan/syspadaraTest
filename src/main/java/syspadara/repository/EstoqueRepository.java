@@ -14,8 +14,10 @@ public interface EstoqueRepository extends JpaRepository<Estoque, Long>{
 	
 	Estoque findByNome(String nome);
 	
-	@Query(value = "select * from produto where nome like %:nome%",
-			nativeQuery = true)
+	@Query(value = "select * from produto where nome like %:nome%", nativeQuery = true)
 	List<Estoque> buscarProduto(@Param("nome") String nome);
+	
+	@Query(value = "select * from estoque order by id", nativeQuery = true)
+	List<Estoque> findAll();
 	
 }

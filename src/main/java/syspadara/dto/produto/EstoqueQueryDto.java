@@ -1,4 +1,4 @@
-package syspadara.controller;
+package syspadara.dto.produto;
 
 public class EstoqueQueryDto {
 

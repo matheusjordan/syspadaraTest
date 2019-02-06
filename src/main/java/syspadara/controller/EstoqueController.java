@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.ApiOperation;
+import syspadara.dto.pageament.EstoquePageDto;
+import syspadara.dto.pageament.FindDto;
 import syspadara.dto.produto.AlterarProdDto;
 import syspadara.dto.produto.CadastroProdDto;
+import syspadara.dto.produto.EstoqueQueryDto;
 import syspadara.model.Estoque;
 import syspadara.service.EstoqueService;
 
@@ -84,6 +87,13 @@ public class EstoqueController {
 		
 		List<Estoque> produtos = service.findByParam(query);
 		return new ResponseEntity<List<Estoque>>(produtos,HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "pageamento de produtos do estoque")
+	@GetMapping("/pageament")
+	public ResponseEntity<EstoquePageDto> pageamentEstoque(FindDto find){
+		EstoquePageDto estoquePage = service.pageamentEstoque(find);
+		return new ResponseEntity<EstoquePageDto>(estoquePage, HttpStatus.OK);
 	}
 
 }
