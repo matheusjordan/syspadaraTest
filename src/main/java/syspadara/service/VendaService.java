@@ -3,6 +3,8 @@ package syspadara.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,8 @@ import syspadara.repository.VendaRepository;
 
 @Service
 public class VendaService {
-
+	private final Logger LOG = LoggerFactory.getLogger(VendaService.class);
+	
 	@Autowired
 	private VendaRepository vendaRepo;
 
@@ -32,10 +35,11 @@ public class VendaService {
 			venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaCadastro.getProdutos()));
 
 			vendaRepo.save(venda);
-			System.out.println("Criado");
+			LOG.info("Venda: " + venda.getId() + " criada com sucesso!");
 		} else
+			LOG.error("Venda não realizada!");
 			throw new Exception(
-					"Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+					"Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
 
 	}
 
@@ -50,17 +54,16 @@ public class VendaService {
 			venda.setProdutos(prodVendaSer.convertToProdutoVenda(vendaAltera.getProdutos()));
 
 			vendaRepo.save(venda);
-			System.out.println("Atualizado");
-		} else
-			throw new Exception(
-					"Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
-
+			LOG.info("Venda: " + venda.getId() + " alterada com sucesso!");
+		} else {
+			LOG.error("Venda não realizada!");
+			throw new Exception("Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+		}
 	}
 
 	public void deleteVenda(Long id) {
-		Venda venda = vendaRepo.findById(id).get();
-		vendaRepo.delete(venda);
-		System.out.println("Deletado");
+		vendaRepo.deleteById(id);
+		LOG.info("Venda: " + id + " removida com sucesso!");
 	}
 	// *************
 
@@ -83,7 +86,7 @@ public class VendaService {
 		for (Venda venda : vendas) {
 			venda.setStatus(1);
 			estoqueSer.decrementaEstoque(venda.getProdutos());
-
+			LOG.info("Venda: " + venda.getId() + " finalizada com sucesso! STATUS: " + venda.getStatus());
 		}
 	}
 	

@@ -3,6 +3,8 @@ package syspadara.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -20,6 +22,7 @@ import syspadara.repository.EstoqueRepository;
 
 @Service
 public class EstoqueService {
+	private final Logger LOG = LoggerFactory.getLogger(EstoqueService.class);
 
 	@Autowired
 	private EstoqueRepository estoqueRepo;
@@ -33,7 +36,7 @@ public class EstoqueService {
 		produto.setQntd(produtoCadastro.getQntd());
 
 		estoqueRepo.save(produto);
-		System.out.println("Criado");
+		LOG.info("Estoque do produto: " + produto.getNome() + " criado com sucesso!");
 	}
 
 	public Estoque readEstoque(Long id) {
@@ -48,12 +51,13 @@ public class EstoqueService {
 		produto.setQntd(produtoAltera.getQntd());
 
 		estoqueRepo.save(produto);
-		System.out.println("Atualizado");
+		LOG.info("Estoque do produto: " + produto.getNome() + " alterado com sucesso!");
 	}
 
 	public void deleteEstoque(Long id) {
+		Estoque produto = estoqueRepo.findById(id).get();
 		estoqueRepo.deleteById(id);
-		System.out.println("Deletado");
+		LOG.info("Estoque do produto: " + produto.getNome() + " removido com sucesso!");
 	}
 	// *************
 
@@ -122,10 +126,13 @@ public class EstoqueService {
 			for (ProdutoVenda produto : produtos) {
 				Estoque estoque = this.readEstoque(produto.getProdutoId());
 				estoque.setQntd(estoque.getQntd() - produto.getQntd());
+				
+				LOG.info(produto.getQntd() + " unidades do produto: " + estoque.getNome() + " creditadas do estoque com sucesso!");
 			}
-		} else
-			throw new Exception(
-					"Venda não realizada! Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+		} else {
+			LOG.error("Venda não realizada!");
+			throw new Exception("Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+		}
 	}
 
 	// Função para retornar produtos que contenham um nome ou valor ou qntd em comum
@@ -133,8 +140,10 @@ public class EstoqueService {
 		Estoque estoque = new Estoque(query.getNome(), query.getValor(), query.getQntd());
 
 		// Classe que define os valores que irei utilizar no filtro
-		ExampleMatcher matcher = ExampleMatcher.matchingAll().withMatcher("nome", match -> match.contains())
-				.withMatcher("valor", match -> match.contains()).withMatcher("qntd", match -> match.contains())
+		ExampleMatcher matcher = ExampleMatcher.matchingAll()
+				.withMatcher("nome", match -> match.contains())
+				.withMatcher("valor", match -> match.contains())
+				.withMatcher("qntd", match -> match.contains())
 				.withIgnoreNullValues();
 
 		// Criação do meu exemplo que retorna uma lista de produtos de acordo com os

@@ -2,6 +2,8 @@ package syspadara.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import syspadara.repository.CaixaRepository;
 
 @Service
 public class CaixaService {
+	
+	private final Logger LOG = LoggerFactory.getLogger(CaixaService.class);
 
 	@Autowired
 	private CaixaRepository caixaRepo;
@@ -29,7 +33,7 @@ public class CaixaService {
 
 		caixa.setVendas(vendaSer.findVendas(cadastroCaixa.getVendasId()));
 		caixaRepo.save(caixa);
-		System.out.println("Criado");
+		LOG.info("Caixa: " + caixa.getId() + " criado com sucesso!");
 	}
 
 	public Caixa readCaixa(Long id) {
@@ -43,11 +47,12 @@ public class CaixaService {
 
 		caixa.setVendas(vendaSer.findVendas(updateCaixa.getVendasId()));
 		caixaRepo.save(caixa);
-		System.out.println("Alterado");
+		LOG.info("Caixa: " + caixa.getId() + " alterado com sucesso!");
 	}
 
 	public void deleteCaixa(Long id) {
 		caixaRepo.deleteById(id);
+		LOG.info("Caixa: " + id + " removido com sucesso!");
 	}
 	// *************
 
@@ -57,12 +62,13 @@ public class CaixaService {
 
 	// Função que adiciona uma venda ao caixa
 	public void addVenda(AlterarCaixaDto updateCaixa) throws Exception{
-		Caixa caixa = caixaRepo.findById(updateCaixa.getCaixaId()).get();
+		Long caixaId = updateCaixa.getCaixaId();
+		Caixa caixa = caixaRepo.findById(caixaId).get();
 
 		vendaSer.finalizeVenda(vendaSer.findVendas(updateCaixa.getVendasId()));
 
 		caixa.addVendas(vendaSer.findVendas(updateCaixa.getVendasId()));
 		caixaRepo.save(caixa);
-		System.out.println("Adicionado");
+		LOG.info("Vendas foram adicionadas ao caixa: " + caixa.getId() + " com sucesso!");
 	}
 }

@@ -3,6 +3,8 @@ package syspadara.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import syspadara.repository.ProdutoVendaRepository;
 
 @Service
 public class ProdutoVendaService {
+	private final Logger LOG = LoggerFactory.getLogger(ProdutoVendaService.class);
 
 	@Autowired
 	private ProdutoVendaRepository prodVendaRepo;
@@ -22,7 +25,7 @@ public class ProdutoVendaService {
 	// Funções CRUD***
 	public void createProdutoVenda(ProdutoVenda produto) {
 		prodVendaRepo.save(produto);
-		System.out.println("Vendido");
+		LOG.info("Produto: " + produto.getId() + " adicionado a venda com sucesso!");
 	}
 
 	public ProdutoVenda readProduto(Long id) {
@@ -31,7 +34,7 @@ public class ProdutoVendaService {
 
 	public void updateProduto(ProdutoVenda produto) {
 		prodVendaRepo.save(produto);
-		System.out.println("Alterado");
+		LOG.info("Produto: " + produto.getId() + " alterado na venda com sucesso!");
 	}
 
 	public void deleteProduto(Long id) {
