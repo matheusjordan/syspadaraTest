@@ -26,3 +26,9 @@
 
 - Atualização para versao 2.3.0 -:
 1- Adicionado Paginação de vendas
+
+- Atualização para versao 3.1.0 -:
+1- Implementado Classe USUARIO e conssequentemente seu repository, service e controller.
+2- Implementado LOGGER nos Services de todas as Classes do projeto.
+3- Corrigido adversidades oriundas da implantação do LOGGER.
+4- Implementado DTO's da classe USUARIO.
