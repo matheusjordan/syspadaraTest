@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import io.swagger.annotations.ApiOperation;
 import syspadara.dto.caixa.AlterarCaixaDto;
 import syspadara.dto.caixa.CadastroCaixaDto;
-import syspadara.dto.pageament.CaixaPageDto;
-import syspadara.dto.pageament.FindDto;
 import syspadara.model.Caixa;
 import syspadara.service.CaixaService;
 
@@ -73,11 +71,6 @@ public class CaixaController {
 		return new ResponseEntity<List<Caixa>>(caixas, HttpStatus.OK);
 	}
 	
-	@GetMapping
-	@ApiOperation(value = "retorna o pageamento de caixas")
-	public ResponseEntity<CaixaPageDto> pageamentCaixa(FindDto find){
-		CaixaPageDto caixaPage = null;
-		return new ResponseEntity<CaixaPageDto>(caixaPage, HttpStatus.OK);
-	}
+	//Função que adiciona uma venda a um determinado caixa
 
 }

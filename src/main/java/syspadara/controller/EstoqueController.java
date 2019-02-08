@@ -59,8 +59,7 @@ public class EstoqueController {
 		service.deleteEstoque(id);
 		return new ResponseEntity<Estoque>(HttpStatus.OK);
 	}
-	//**********
-	
+
 	@ApiOperation(value = "Retorna os dados de todos os produto")
 	@GetMapping("/")
 	public ResponseEntity<List<Estoque>> listAll() {
@@ -91,7 +90,7 @@ public class EstoqueController {
 	}
 	
 	@ApiOperation(value = "pageamento de produtos do estoque")
-	@GetMapping
+	@GetMapping("/pageament")
 	public ResponseEntity<EstoquePageDto> pageamentEstoque(FindDto find){
 		EstoquePageDto estoquePage = service.pageamentEstoque(find);
 		return new ResponseEntity<EstoquePageDto>(estoquePage, HttpStatus.OK);
