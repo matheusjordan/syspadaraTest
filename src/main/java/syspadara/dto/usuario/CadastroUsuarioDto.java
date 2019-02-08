@@ -5,7 +5,7 @@ import javax.validation.constraints.PositiveOrZero;
 
 public class CadastroUsuarioDto {
 	
-	@NotEmpty
+	@NotEmpty 
 	private String username;
 	
 	@NotEmpty

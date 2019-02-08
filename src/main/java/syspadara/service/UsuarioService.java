@@ -12,7 +12,7 @@ import syspadara.dto.usuario.CadastroUsuarioDto;
 import syspadara.model.Usuario;
 import syspadara.repository.UsuarioRepository;
 
-@Service
+@Service 
 public class UsuarioService {
 	private final Logger LOG = LoggerFactory.getLogger(UsuarioService.class);
 	

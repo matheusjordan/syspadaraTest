@@ -20,7 +20,7 @@ import syspadara.model.Estoque;
 import syspadara.model.ProdutoVenda;
 import syspadara.repository.EstoqueRepository;
 
-@Service
+@Service 
 public class EstoqueService {
 	private final Logger LOG = LoggerFactory.getLogger(EstoqueService.class);
 

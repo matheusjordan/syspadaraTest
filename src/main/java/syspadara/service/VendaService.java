@@ -15,7 +15,7 @@ import syspadara.dto.pageament.VendaPageDto;
 import syspadara.model.Venda;
 import syspadara.repository.VendaRepository;
 
-@Service
+@Service 
 public class VendaService {
 	private final Logger LOG = LoggerFactory.getLogger(VendaService.class);
 	

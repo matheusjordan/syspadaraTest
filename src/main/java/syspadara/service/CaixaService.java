@@ -12,7 +12,7 @@ import syspadara.dto.caixa.CadastroCaixaDto;
 import syspadara.model.Caixa;
 import syspadara.repository.CaixaRepository;
 
-@Service
+@Service 
 public class CaixaService {
 	
 	private final Logger LOG = LoggerFactory.getLogger(CaixaService.class);

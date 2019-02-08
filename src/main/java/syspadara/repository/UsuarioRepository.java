@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import syspadara.model.Usuario;
 
-@Repository
+@Repository 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 }

@@ -25,7 +25,7 @@ import syspadara.dto.produto.EstoqueQueryDto;
 import syspadara.model.Estoque;
 import syspadara.service.EstoqueService;
 
-@Controller
+@Controller 
 @RequestMapping(path = "estoques")
 public class EstoqueController {
 

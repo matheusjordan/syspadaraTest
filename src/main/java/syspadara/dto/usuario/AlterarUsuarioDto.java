@@ -5,7 +5,7 @@ import javax.validation.constraints.Positive;
 public class AlterarUsuarioDto extends CadastroUsuarioDto{
 
 	@Positive
-	private Long id;
+	private Long id; 
 
 	//Construtores
 	public AlterarUsuarioDto() {

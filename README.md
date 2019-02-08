@@ -7,7 +7,7 @@
 - Atualização para versao 2.0.2 -:
 1- Renomeado classe PRODUTO para ESTOQUE e conssequentemente seu repository, service e controller.
 2- Implementado classe CAIXA e suas respectivas dependencias e regras de negocio.
-3- Implementado ALteração do status da venda após ela ser validada por um caixa.
+3- Implementado ALteração do status da venda após ela ser validada por um caixa. 
 
 - Atualização para versao 2.2.0 -:
 1- Criado Anotações e Validadores.

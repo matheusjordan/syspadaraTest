@@ -24,7 +24,7 @@ import syspadara.dto.pageament.VendaPageDto;
 import syspadara.model.Venda;
 import syspadara.service.VendaService;
 
-@Controller
+@Controller 
 @RequestMapping("vendas")
 public class VendaController {
 

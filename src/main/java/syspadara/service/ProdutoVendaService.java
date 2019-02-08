@@ -12,7 +12,7 @@ import syspadara.dto.produto.ProdutoVendaDto;
 import syspadara.model.ProdutoVenda;
 import syspadara.repository.ProdutoVendaRepository;
 
-@Service
+@Service 
 public class ProdutoVendaService {
 	private final Logger LOG = LoggerFactory.getLogger(ProdutoVendaService.class);
 

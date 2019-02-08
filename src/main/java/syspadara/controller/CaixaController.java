@@ -24,7 +24,7 @@ import syspadara.dto.pageament.FindDto;
 import syspadara.model.Caixa;
 import syspadara.service.CaixaService;
 
-@Controller
+@Controller 
 @RequestMapping("/caixas")
 public class CaixaController {
 

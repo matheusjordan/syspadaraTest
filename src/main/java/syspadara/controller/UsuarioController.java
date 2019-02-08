@@ -20,7 +20,7 @@ import syspadara.dto.usuario.CadastroUsuarioDto;
 import syspadara.model.Usuario;
 import syspadara.service.UsuarioService;
 
-@Controller
+@Controller 
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
