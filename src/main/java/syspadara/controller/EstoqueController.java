@@ -26,7 +26,7 @@ import syspadara.model.Estoque;
 import syspadara.service.EstoqueService;
 
 @Controller 
-@RequestMapping(path = "estoques")
+@RequestMapping("/estoques")
 public class EstoqueController {
 
 	@Autowired

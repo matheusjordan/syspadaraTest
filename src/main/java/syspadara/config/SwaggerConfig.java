@@ -1,4 +1,4 @@
-package syspadara;
+package syspadara.config;
 
 //import java.util.ArrayList;
 

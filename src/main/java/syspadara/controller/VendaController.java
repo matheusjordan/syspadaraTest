@@ -25,7 +25,7 @@ import syspadara.model.Venda;
 import syspadara.service.VendaService;
 
 @Controller 
-@RequestMapping("vendas")
+@RequestMapping("/vendas")
 public class VendaController {
 
 	@Autowired

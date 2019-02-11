@@ -32,3 +32,6 @@
 2- Implementado LOGGER nos Services de todas as Classes do projeto.
 3- Corrigido adversidades oriundas da implantação do LOGGER.
 4- Implementado DTO's da classe USUARIO.
+
+- Atualização para versao 3.2.0 -:
+1- Implementação básica do SpringSecurity
