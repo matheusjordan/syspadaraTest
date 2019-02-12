@@ -1,12 +1,16 @@
 package syspadara.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import syspadara.enums.TipoUsuario;
 
 @Entity 
 public class Usuario implements Serializable{
@@ -67,5 +71,11 @@ public class Usuario implements Serializable{
 
 	public void setTipoUser(Integer tipoUser) {
 		this.tipoUser = tipoUser;
+	}
+	
+	public Set<TipoUsuario> getTipo(){
+		Set<TipoUsuario> tipos = new HashSet<>();
+		tipos.add(TipoUsuario.toEnum(this.getTipoUser()));
+		return tipos;
 	}
 }

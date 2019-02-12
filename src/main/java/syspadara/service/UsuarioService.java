@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import syspadara.dto.usuario.AlterarUsuarioDto;
@@ -16,6 +17,10 @@ import syspadara.repository.UsuarioRepository;
 public class UsuarioService {
 	private final Logger LOG = LoggerFactory.getLogger(UsuarioService.class);
 	
+	//Utilizado para encriptografar senha dos usuarios
+	@Autowired
+	private BCryptPasswordEncoder passEncode;
+	
 	@Autowired
 	private UsuarioRepository usuarioRepo;
 	
@@ -23,7 +28,7 @@ public class UsuarioService {
 	public void createUsuario(CadastroUsuarioDto usuarioDto) {
 		Usuario usuario = new Usuario();
 		usuario.setUsername(usuarioDto.getUsername());
-		usuario.setPassword(usuarioDto.getPassword());
+		usuario.setPassword(passEncode.encode(usuarioDto.getPassword()));
 		usuario.setTipoUser(usuarioDto.getTipoUser());
 		
 		usuarioRepo.save(usuario);
@@ -38,7 +43,7 @@ public class UsuarioService {
 	public void updateUsuario(AlterarUsuarioDto usuarioDto) {
 		Usuario usuario = this.readUsuario(usuarioDto.getId());
 		usuario.setUsername(usuarioDto.getUsername());
-		usuario.setPassword(usuarioDto.getPassword());
+		usuario.setPassword(passEncode.encode(usuarioDto.getPassword()));
 		usuario.setTipoUser(usuarioDto.getTipoUser());
 		
 		usuarioRepo.save(usuario);
@@ -55,5 +60,9 @@ public class UsuarioService {
 	
 	public List<Usuario> readAll(){
 		return usuarioRepo.findAll();
+	}
+	
+	public Usuario readByUsername(String username) {
+		return usuarioRepo.findByUsername(username);
 	}
 }

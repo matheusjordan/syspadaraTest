@@ -1,38 +1,54 @@
 package syspadara.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig extends WebSecurityConfigurerAdapter{
+class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private static final String[] PUBLIC_ENDPOINTS = {
-		"/swagger-ui.htm/**"
-			
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	private static final String[] PUBLIC_ENDPOINTS = { 
+			"/swagger-ui.htm/**"
+
 	};
-	
-	private static final String[] PUBLIC_ENDPOINTS_GET = {
-			"/caixas/**",
-			"/estoques/**",
-			"/usuarios/**",
+
+	private static final String[] PUBLIC_ENDPOINTS_GET = { 
+			"/caixas/**", 
+			"/estoques/**", 
+			"/usuarios/**", 
 			"/vendas/**"
-			
+
 	};
-	
+
 	@Override
-	protected void configure(HttpSecurity http) throws Exception{
+	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers(PUBLIC_ENDPOINTS) //Configuração dos endpoint que posso acessar após estar authenticado
+			.antMatchers(PUBLIC_ENDPOINTS) // Configuração dos endpoint que posso acessar após estar												// authenticado
 				.permitAll()
-			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET) // Configuração que autoriza meu acesso aos metodos GET
-				.permitAll()									// dos endpoints pre configurados 
-			.anyRequest().authenticated()
-			.and()
-			.formLogin()
-				.defaultSuccessUrl("/swagger-ui.htm/");
+			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET) // Configuração que autoriza meu acesso																// aos metodos GET
+				.permitAll() 								// dos endpoints pre configurados
+				.anyRequest().authenticated().and().formLogin().defaultSuccessUrl("/swagger-ui.htm/");
+	}
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 }

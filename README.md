@@ -35,3 +35,9 @@
 
 - Atualização para versao 3.2.0 -:
 1- Implementação básica do SpringSecurity
+
+- Atualização para versao 3.3.0 -:
+1- Implementado UserDetails e seu service.
+2- Implementado LoginDto.
+3- Criado Classe JwtUtil para gerar o token
+4- Configurado token no application.properties
