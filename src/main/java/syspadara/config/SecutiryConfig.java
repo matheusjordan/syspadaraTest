@@ -8,8 +8,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import syspadara.security.JWTAuthenticationFilter;
+import syspadara.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
@@ -18,6 +22,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private JWTUtil jwtUtil;
+	
 	private static final String[] PUBLIC_ENDPOINTS = { 
 			"/swagger-ui.htm/**"
 
@@ -33,12 +40,18 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.cors().and().csrf().disable();
+		
 		http.authorizeRequests()
 			.antMatchers(PUBLIC_ENDPOINTS) // Configuração dos endpoint que posso acessar após estar												// authenticado
 				.permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET) // Configuração que autoriza meu acesso																// aos metodos GET
 				.permitAll() 								// dos endpoints pre configurados
 				.anyRequest().authenticated().and().formLogin().defaultSuccessUrl("/swagger-ui.htm/");
+	
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 	}
 
 	@Bean

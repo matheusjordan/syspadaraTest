@@ -41,3 +41,9 @@
 2- Implementado LoginDto.
 3- Criado Classe JwtUtil para gerar o token
 4- Configurado token no application.properties
+
+- Atualização para versao 3.4.0 -:
+1- Implementado filtro de requisições
+
+OBS: Erro de autenticação e de parametros estao ocorrendo,
+e nao estao permitindo que eu logue no site! >:C
