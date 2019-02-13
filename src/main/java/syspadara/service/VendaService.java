@@ -36,10 +36,11 @@ public class VendaService {
 
 			vendaRepo.save(venda);
 			LOG.info("Venda: " + venda.getId() + " criada com sucesso!");
-		} else
+		} else {
 			LOG.error("Venda não realizada!");
 			throw new Exception(
 					"Verifique se a quantidade vendida dos produtos é menor ou igual ao estoque!");
+		}
 
 	}
 

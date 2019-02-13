@@ -45,5 +45,5 @@
 - Atualização para versao 3.4.0 -:
 1- Implementado filtro de requisições
 
-OBS: Erro de autenticação e de parametros estao ocorrendo,
-e nao estao permitindo que eu logue no site! >:C
+- Atualização para versao 3.5.0 -:
+1- Finalizado implementação de autorização

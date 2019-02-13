@@ -2,15 +2,15 @@ package syspadara.dto.login;
 
 public class LoginDto {
 	private String username;
-	private String senha;
+	private String password;
 	
 	//Construtores
 	public LoginDto() {
 	}
 
-	public LoginDto(String username, String senha) {
+	public LoginDto(String username, String password) {
 		this.username = username;
-		this.senha = senha;
+		this.password = password;
 	}
 
 	//Metodos
@@ -22,11 +22,11 @@ public class LoginDto {
 		this.username = username;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

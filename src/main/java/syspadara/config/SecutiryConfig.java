@@ -26,7 +26,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JWTUtil jwtUtil;
 	
 	private static final String[] PUBLIC_ENDPOINTS = { 
-			"/swagger-ui.htm/**"
+			"/swagger-ui.htm/"
 
 	};
 
@@ -44,10 +44,10 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 			.antMatchers(PUBLIC_ENDPOINTS) // Configuração dos endpoint que posso acessar após estar												// authenticado
-				.permitAll()
+				.authenticated()
 			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET) // Configuração que autoriza meu acesso																// aos metodos GET
-				.permitAll() 								// dos endpoints pre configurados
-				.anyRequest().authenticated().and().formLogin().defaultSuccessUrl("/swagger-ui.htm/");
+				.authenticated() 								// dos endpoints pre configurados
+				.anyRequest().authenticated();
 	
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	

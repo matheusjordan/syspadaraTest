@@ -1,7 +1,7 @@
 package syspadara.dto.usuario;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Positive;
 
 public class CadastroUsuarioDto {
 	
@@ -11,7 +11,7 @@ public class CadastroUsuarioDto {
 	@NotEmpty
 	private String password;
 	
-	@PositiveOrZero
+	@Positive
 	private Integer tipoUser;
 	
 	//Construtores

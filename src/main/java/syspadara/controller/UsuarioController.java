@@ -2,6 +2,8 @@ package syspadara.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class UsuarioController {
 	
 	@PostMapping("/")
 	@ApiOperation("Cria um novo usuário")
-	public ResponseEntity<Usuario> createUsuario(@RequestBody CadastroUsuarioDto usuarioDto){
+	public ResponseEntity<Usuario> createUsuario(@RequestBody @Valid CadastroUsuarioDto usuarioDto){
 		service.createUsuario(usuarioDto);
 		return new ResponseEntity<Usuario>(HttpStatus.CREATED);
 	}
@@ -43,7 +45,7 @@ public class UsuarioController {
 	
 	@PutMapping("/")
 	@ApiOperation("Atualiza os dados de um usuário")
-	public ResponseEntity<Usuario> updateUsuario(@RequestBody AlterarUsuarioDto usuarioDto){
+	public ResponseEntity<Usuario> updateUsuario(@RequestBody @Valid AlterarUsuarioDto usuarioDto){
 		service.updateUsuario(usuarioDto);
 		return new ResponseEntity<Usuario>(HttpStatus.OK);
 	}
