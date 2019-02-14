@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -18,6 +19,8 @@ import syspadara.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
+//@EnableGlobalAuthentication
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
@@ -27,16 +30,14 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JWTUtil jwtUtil;
 	
 	private static final String[] PUBLIC_ENDPOINTS = { 
-			"/swagger-ui.htm/"
-
+			"/swagger-ui.html"
 	};
 
 	private static final String[] PUBLIC_ENDPOINTS_GET = { 
-			"/caixas/", 
-			"/estoques/", 
-			"/usuarios/", 
-			"/vendas/"
-
+			"/caixas/**", 
+			"/estoques/**", 
+			"/usuarios/**", 
+			"/vendas/**",
 	};
 
 	@Override
@@ -44,11 +45,10 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		
 		http.authorizeRequests()
-			.antMatchers(PUBLIC_ENDPOINTS) // Configuração dos endpoint que posso acessar após estar												// authenticado
-				.permitAll()
-			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET) // Configuração que autoriza meu acesso																// aos metodos GET
-				.permitAll()								// dos endpoints pre configurados
-				.anyRequest().authenticated();
+			.antMatchers(PUBLIC_ENDPOINTS).permitAll() // Configuração dos endpoint que posso acessar após estar authenticado
+			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET).permitAll() // Configuração que autoriza meu acesso																// aos metodos GET
+																			// dos endpoints pre configurados
+			.anyRequest().authenticated();
 	
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	
