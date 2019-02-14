@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import syspadara.enums.TipoUsuario;
 
 public class UserSS implements UserDetails{
+	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String username;

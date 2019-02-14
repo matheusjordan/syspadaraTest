@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import syspadara.security.JWTAuthenticationFilter;
+import syspadara.security.JWTAuthorizationFilter;
 import syspadara.security.JWTUtil;
 
 @Configuration
@@ -31,10 +32,10 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	};
 
 	private static final String[] PUBLIC_ENDPOINTS_GET = { 
-			"/caixas/**", 
-			"/estoques/**", 
-			"/usuarios/**", 
-			"/vendas/**"
+			"/caixas/", 
+			"/estoques/", 
+			"/usuarios/", 
+			"/vendas/"
 
 	};
 
@@ -44,14 +45,18 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 			.antMatchers(PUBLIC_ENDPOINTS) // Configuração dos endpoint que posso acessar após estar												// authenticado
-				.authenticated()
+				.permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_ENDPOINTS_GET) // Configuração que autoriza meu acesso																// aos metodos GET
-				.authenticated() 								// dos endpoints pre configurados
+				.permitAll()								// dos endpoints pre configurados
 				.anyRequest().authenticated();
 	
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	
+		//Filtro de authenticação
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		
+		//Filtro de authorização
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 	}
 
 	@Bean

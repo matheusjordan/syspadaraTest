@@ -46,4 +46,11 @@
 1- Implementado filtro de requisições
 
 - Atualização para versao 3.5.0 -:
-1- Finalizado implementação de autorização
+1- Finalizado implementação de autenticação
+
+- Atualização para versao 3.6.0 -:
+1- Criado classes de Autorização no Pacote SECURITY
+2- Adicionado novas funções à Classe JWTUtil
+3- tentativa de implementação da autorização
+
+OBS: Implementação da autorização falhou!
